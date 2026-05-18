@@ -5,12 +5,17 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
   color: #333;
   background-color: #fff;
+  overflow-x: hidden;
 }
 
 /* =========================================
@@ -99,6 +104,20 @@ body {
   height: 100%;
 }
 
+@keyframes bgZoomOut {
+  0% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+}
+
 .fv-video {
   position: absolute;
   top: 0;
@@ -107,11 +126,27 @@ body {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transform: scale(1.65);
+  transform-origin: center center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .fv-video.active {
-  opacity: 1;
+  animation: bgZoomOut 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fv-bubble-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Overlay Elements */
@@ -197,9 +232,10 @@ body {
 
 .bubble {
   position: absolute;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.03) 70%, rgba(255, 255, 255, 0.15) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
+  box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.1), inset 1px 1px 3px rgba(255, 255, 255, 0.3);
   animation: rise ease-in forwards;
 }
 
@@ -220,7 +256,7 @@ body {
 /* Catch Copy Container */
 .catch-copy-container {
   position: absolute;
-  top: 60%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
@@ -236,22 +272,34 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
+  z-index: 5;
 }
 
-.catch-copy-svg-wrap {
+.catch-copy-svg-wrap.line-pc {
+  display: block;
+  width: 95%;
+  max-width: 900px;
+  margin: 5px 0;
+  line-height: 0;
+  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s both; /* 1. Catch copy line PC */
+}
+
+.catch-copy-svg-wrap.line-1 {
+  display: none;
   width: 90%;
   max-width: 800px;
   margin: 5px 0;
   line-height: 0;
-}
-
-.catch-copy-svg-wrap.line-1 {
   animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s both; /* 1. Catch copy line 1 */
 }
 
 .catch-copy-svg-wrap.line-2 {
+  display: none;
+  width: 90%;
   max-width: 500px;
+  margin: 5px 0;
+  line-height: 0;
   animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both; /* 1. Catch copy line 2 */
 }
 
@@ -264,11 +312,11 @@ body {
 /* Diver Image Styling */
 .diver-img {
   position: relative;
-  margin-top: 40px;
-  width: 400px;
+  margin-top: 20px;
+  width: 630px;
   pointer-events: none;
-  z-index: 10;
-  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s both; /* 3. Main diver */
+  z-index: 1;
+  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both; /* 3. Main diver */
 }
 
 .diver-img img {
@@ -288,36 +336,7 @@ body {
   50% { transform: translate(30px, -20px) rotate(5deg); }
 }
 
-/* Decorative Divers (Ashirai) */
-.decor-diver {
-  position: absolute;
-  pointer-events: none;
-  z-index: 10;
-}
 
-.decor-left {
-  bottom: -20px;
-  left: -80px;
-  width: 150px;
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both; /* 2. Decor Left */
-}
-
-.decor-right {
-  bottom: -20px;
-  right: -80px;
-  width: 150px;
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both; /* 2. Decor Right */
-}
-
-@keyframes decorFloatLeft {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(15px, -15px) rotate(5deg); }
-}
-
-@keyframes decorFloatRight {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-15px, 15px) rotate(-5deg); }
-}
 
 /* Wave Bottom */
 .wave-container {
@@ -341,17 +360,17 @@ body {
 }
 
 .wave1 {
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 Z" fill="%23e4f3fc"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 Z" fill="%23c5e6fa"/></svg>');
   animation: moveWave 15s linear infinite;
 }
 
 .wave2 {
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,80 C200,10 400,110 600,80 C800,50 1000,120 1200,80 L1200,120 Z" fill="rgba(228,243,252,0.5)"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,80 C200,10 400,110 600,80 C800,50 1000,120 1200,80 L1200,120 Z" fill="rgba(197, 230, 250, 0.5)"/></svg>');
   animation: moveWave 10s linear infinite;
 }
 
 .wave3 {
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,40 C250,90 350,20 600,40 C850,60 950,10 1200,40 L1200,120 Z" fill="rgba(228,243,252,0.3)"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,40 C250,90 350,20 600,40 C850,60 950,10 1200,40 L1200,120 Z" fill="rgba(197, 230, 250, 0.3)"/></svg>');
   animation: moveWave 20s linear infinite;
 }
 
@@ -504,26 +523,28 @@ body {
     top: 55%;
   }
 
-  .catch-copy-svg-wrap {
+  .catch-copy-svg-wrap.line-pc {
+    display: none;
+  }
+
+  .catch-copy-svg-wrap.line-1 {
+    display: block;
     width: 95%;
+  }
+
+  .catch-copy-svg-wrap.line-2 {
+    display: block;
+    width: 95%;
+    max-width: 500px;
   }
 
   .diver-img {
     margin-top: 80px;
     width: 340px; /* Bigger main diver */
+    z-index: 1;
   }
 
-  .decor-left {
-    bottom: -90px; /* Move further below text to prevent overlap */
-    left: 10px; /* Ensure it stays on screen */
-    width: 100px; /* Increased size */
-  }
 
-  .decor-right {
-    bottom: -90px; /* Symmetrical to left diver */
-    right: 10px;
-    width: 100px; /* Match left diver size */
-  }
 
   .marquee-content span {
     font-size: 15vw;
@@ -606,8 +627,8 @@ body {
   .floating-contact-btn {
     width: 80px;
     height: 80px;
-    bottom: 15px;
-    right: 15px;
+    bottom: 20px;
+    right: 20px; /* Slightly adjusted to prevent clipping on mobile */
   }
   .floating-contact-btn svg {
     width: 28px;
