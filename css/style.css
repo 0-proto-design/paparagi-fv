@@ -474,7 +474,7 @@ body {
    ========================================= */
 @media (max-width: 768px) {
   .header {
-    padding: 2px 4%;
+    padding: 4px 4%; /* ヘッダーを窮屈にさせない元の適度な余白に戻す */
   }
 
   .header-inner {
@@ -485,7 +485,8 @@ body {
   }
 
   .header-logo img {
-    height: 36px;
+    height: 46px; /* ロゴサイズを大きくし、ヘッダー内に美しく収める */
+    display: block;
   }
 
   .header-nav {
@@ -495,8 +496,8 @@ body {
   /* Mobile Menu Button */
   .menu-btn {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 38px; /* サイズを大きく */
+    height: 38px; /* サイズを大きく */
     background-color: #1a2b4c;
     border-radius: 50%;
     border: none;
@@ -509,29 +510,29 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 16px;
-    height: 1.5px;
+    width: 20px; /* バーの幅も大きくして押しやすく */
+    height: 2px; /* バーの太さも少しアップ */
     background-color: #fff;
   }
 
-  .menu-btn span:nth-child(1) { top: 12px; }
-  .menu-btn span:nth-child(2) { top: 18px; }
+  .menu-btn span:nth-child(1) { top: 14px; }
+  .menu-btn span:nth-child(2) { top: 22px; }
 
   /* Catch Copy Mobile Adjustments */
   .catch-copy-container {
-    top: 120px; /* キャッチコピーの位置をもう少し下げる */
+    top: 38%; /* FVの中央少し上に配置 */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     align-items: center;
   }
 
   .catch-copy-text.line-1 {
-    font-size: 5.2vw; /* 「ダイビングの楽しさ、」を少し小さく */
-    margin-bottom: 0; /* 行間を極限まで詰める */
+    font-size: 6.8vw; /* テキストサイズを大きく */
+    margin-bottom: 0;
   }
 
   .catch-copy-text.line-2 {
-    font-size: 8.8vw; /* サイズを小さく */
+    font-size: 12.5vw; /* テキストサイズを大きく */
   }
 
   .diver-img {
