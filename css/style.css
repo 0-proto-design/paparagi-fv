@@ -26,15 +26,16 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 4%;
+  padding: 5px 4%;
   z-index: 100;
+  background-color: #fff;
 }
 
 .header-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 2px;
 }
 
 .header-logo img {
@@ -56,22 +57,22 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px 2.5vw;
+  gap: 5px 2vw;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .header-nav a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.05em;
+  font-size: 13px;
+  letter-spacing: 0.03em;
   transition: opacity 0.3s ease;
   display: block;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.3;
 }
 
 .header-nav a:hover {
@@ -157,6 +158,21 @@ body {
   }
 }
 
+@keyframes popInDiver {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) translateY(20px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+  }
+}
+
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -238,9 +254,9 @@ body {
 /* Catch Copy Container */
 .catch-copy-container {
   position: absolute;
-  top: 65%;
+  top: 220px; /* キャッチコピーの位置をもう少し下げる */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -255,50 +271,51 @@ body {
   align-items: center;
   width: 100%;
   max-width: 900px;
-  z-index: 5;
+  z-index: 5; /* ダイバーの上に重ねる */
+  transform: rotate(-4deg); /* 全体を右上がりに傾ける */
+  transform-origin: center center;
 }
 
-.catch-copy-svg-wrap.line-pc {
+.catch-copy-text {
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-weight: 900;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: -0.03em; /* 文字同士が重なって崩れないように微調整 */
+  -webkit-text-stroke: 0.5px #fff; /* 潰れない極細の肉付けで、文字の輪郭を守りつつ太く */
+}
+
+.catch-copy-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.5) translateY(20px);
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: calc(var(--char-index) * 0.06s);
+}
+
+.catch-copy-text.line-1 {
   display: block;
-  width: 95%;
-  max-width: 900px;
-  margin: 5px 0;
-  line-height: 0;
-  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s both; /* 1. Catch copy line PC */
+  font-size: 34px; /* 「ダイビングの楽しさ、」を少し小さく */
 }
 
-.catch-copy-svg-wrap.line-1 {
-  display: none;
-  width: 90%;
-  max-width: 800px;
-  margin: 5px 0;
-  line-height: 0;
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s both; /* 1. Catch copy line 1 */
-}
-
-.catch-copy-svg-wrap.line-2 {
-  display: none;
-  width: 90%;
-  max-width: 500px;
-  margin: 5px 0;
-  line-height: 0;
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both; /* 1. Catch copy line 2 */
-}
-
-.catch-copy-svg-wrap svg {
-  width: 100%;
-  height: auto;
+.catch-copy-text.line-2 {
   display: block;
+  font-size: 60px; /* サイズを小さく */
+  margin-top: 0; /* 行間を極限まで詰める */
 }
 
 /* Diver Image Styling */
 .diver-img {
-  position: relative;
-  margin-top: 20px;
+  position: absolute;
+  top: 75%; /* 以前の元の位置（画面下部）に配置 */
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 630px;
   pointer-events: none;
-  z-index: 1;
-  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both; /* 3. Main diver */
+  z-index: 2;
+  animation: popInDiver 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
 }
 
 .diver-img img {
@@ -457,7 +474,7 @@ body {
    ========================================= */
 @media (max-width: 768px) {
   .header {
-    padding: 10px 4%;
+    padding: 2px 4%;
   }
 
   .header-inner {
@@ -468,7 +485,7 @@ body {
   }
 
   .header-logo img {
-    height: 60px;
+    height: 36px;
   }
 
   .header-nav {
@@ -478,8 +495,8 @@ body {
   /* Mobile Menu Button */
   .menu-btn {
     display: block;
-    width: 64px;
-    height: 64px;
+    width: 32px;
+    height: 32px;
     background-color: #1a2b4c;
     border-radius: 50%;
     border: none;
@@ -492,38 +509,38 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 32px;
+    width: 16px;
     height: 1.5px;
     background-color: #fff;
   }
 
-  .menu-btn span:nth-child(1) { top: 28px; }
-  .menu-btn span:nth-child(2) { top: 36px; }
+  .menu-btn span:nth-child(1) { top: 12px; }
+  .menu-btn span:nth-child(2) { top: 18px; }
 
   /* Catch Copy Mobile Adjustments */
   .catch-copy-container {
-    top: 55%;
+    top: 120px; /* キャッチコピーの位置をもう少し下げる */
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
   }
 
-  .catch-copy-svg-wrap.line-pc {
-    display: none;
+  .catch-copy-text.line-1 {
+    font-size: 5.2vw; /* 「ダイビングの楽しさ、」を少し小さく */
+    margin-bottom: 0; /* 行間を極限まで詰める */
   }
 
-  .catch-copy-svg-wrap.line-1 {
-    display: block;
-    width: 95%;
-  }
-
-  .catch-copy-svg-wrap.line-2 {
-    display: block;
-    width: 95%;
-    max-width: 500px;
+  .catch-copy-text.line-2 {
+    font-size: 8.8vw; /* サイズを小さく */
   }
 
   .diver-img {
-    margin-top: 80px;
-    width: 340px; /* Bigger main diver */
-    z-index: 1;
+    position: absolute;
+    top: 72%; /* 以前の元の位置（画面下部）に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    z-index: 2;
   }
 
 
