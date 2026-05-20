@@ -265,7 +265,7 @@ body {
 /* Catch Copy Container */
 .catch-copy-container {
   position: absolute;
-  top: 200px;
+  top: 170px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
@@ -307,12 +307,12 @@ body {
 
 .catch-copy-text.line-1 {
   align-self: flex-start;
-  font-size: 56px;
+  font-size: 48px;
 }
 
 .catch-copy-text.line-2 {
   align-self: flex-start;
-  font-size: 82px;
+  font-size: 70px;
   margin-top: -10px; /* 行間を極限まで詰める */
   margin-left: 1.7em; /* 「ン」の開始位置（「ダ」「イ」「ビ」の3文字分の幅）に合わせる */
 }
