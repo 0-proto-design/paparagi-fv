@@ -254,41 +254,40 @@ body {
 /* Catch Copy Container */
 .catch-copy-container {
   position: absolute;
-  top: 220px; /* キャッチコピーの位置をもう少し下げる */
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 90%;
+  max-width: 800px;
 }
 
 .catch-copy-text-inner {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  max-width: 900px;
   z-index: 5; /* ダイバーの上に重ねる */
-  transform: rotate(-4deg); /* 全体を右上がりに傾ける */
+  transform: rotate(-7deg); /* 全体を右上がりに傾ける */
   transform-origin: center center;
 }
 
 .catch-copy-text {
   color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-family: 'Arial Black', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   font-weight: 900;
   margin: 0;
-  text-align: center;
   white-space: nowrap;
-  letter-spacing: -0.03em; /* 文字同士が重なって崩れないように微調整 */
-  -webkit-text-stroke: 0.5px #fff; /* 潰れない極細の肉付けで、文字の輪郭を守りつつ太く */
+  letter-spacing: -0.08em; /* 文字同士をしっかり詰めて迫力を出す */
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .catch-copy-text span {
   display: inline-block;
+  margin-right: -0.16em; /* 改行による余白を相殺し、文字同士を綺麗に密着させる（少しだけ広げて調整） */
   opacity: 0;
   transform: scale(0.5) translateY(20px);
   animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -296,23 +295,24 @@ body {
 }
 
 .catch-copy-text.line-1 {
-  display: block;
-  font-size: 34px; /* 「ダイビングの楽しさ、」を少し小さく */
+  align-self: flex-start;
+  font-size: 56px;
 }
 
 .catch-copy-text.line-2 {
-  display: block;
-  font-size: 60px; /* サイズを小さく */
-  margin-top: 0; /* 行間を極限まで詰める */
+  align-self: flex-start;
+  font-size: 82px;
+  margin-top: -10px; /* 行間を極限まで詰める */
+  margin-left: 1.7em; /* 「ン」の開始位置（「ダ」「イ」「ビ」の3文字分の幅）に合わせる */
 }
 
 /* Diver Image Styling */
 .diver-img {
   position: absolute;
-  top: 75%; /* 以前の元の位置（画面下部）に配置 */
+  top: 66%; /* 以前より少し上に配置 */
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 630px;
+  width: 700px; /* 少し大きく */
   pointer-events: none;
   z-index: 2;
   animation: popInDiver 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
@@ -520,27 +520,31 @@ body {
 
   /* Catch Copy Mobile Adjustments */
   .catch-copy-container {
-    top: 38%; /* FVの中央少し上に配置 */
+    top: 35%; /* FVの中央少し上に配置 */
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
+    width: 92%;
   }
 
   .catch-copy-text.line-1 {
-    font-size: 6.8vw; /* テキストサイズを大きく */
+    font-size: 6.5vw; /* 画面幅からはみ出さないサイズに調整 */
     margin-bottom: 0;
   }
 
   .catch-copy-text.line-2 {
-    font-size: 12.5vw; /* テキストサイズを大きく */
+    align-self: flex-start;
+    font-size: 10.5vw; /* 画面幅からはみ出さないサイズに調整 */
+    margin-top: -5px;
+    margin-left: 1.55em; /* モバイルの文字サイズ比率に合わせた「ン」の開始位置 */
   }
 
   .diver-img {
     position: absolute;
-    top: 72%; /* 以前の元の位置（画面下部）に配置 */
+    top: 64%; /* 以前より少し上に配置 */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 320px;
+    width: 370px;
     z-index: 2;
   }
 
