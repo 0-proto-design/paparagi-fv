@@ -31,6 +31,16 @@ body {
   background-color: #fff;
 }
 
+/* 透過ヘッダー用モディファイア */
+.header.is-transparent {
+  background-color: transparent;
+}
+
+.header.is-transparent .header-nav a {
+  color: #fff;
+}
+
+
 .header-inner {
   display: flex;
   flex-direction: column;
