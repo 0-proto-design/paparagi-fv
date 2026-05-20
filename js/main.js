@@ -61,4 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create a new bubble frequently to increase the amount (every 100ms)
     setInterval(createBubble, 100);
   }
+
+  // Pattern 2 Scroll Header logic
+  const isPattern2 = document.body.classList.contains('page-pattern-2');
+  if (isPattern2) {
+    const header = document.querySelector('.header');
+    const fv = document.querySelector('.fv');
+    
+    if (header && fv) {
+      const handleScroll = () => {
+        const fvHeight = fv.offsetHeight;
+        // FVを通り越した位置にスクロールすると表示される
+        if (window.scrollY > fvHeight) {
+          header.classList.add('is-show');
+        } else {
+          header.classList.remove('is-show');
+        }
+      };
+      
+      window.addEventListener('scroll', handleScroll);
+      // 初期化時にもチェック
+      handleScroll();
+    }
+  }
 });
