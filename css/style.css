@@ -681,7 +681,7 @@ body {
 
 /* パターン2専用：ヘッダー非表示に伴うキャッチコピーとダイバー画像の位置引き上げ */
 .page-pattern-2 .catch-copy-container {
-  top: 130px;
+  top: 90px;
 }
 .page-pattern-2 .diver-img {
   top: 60%;
